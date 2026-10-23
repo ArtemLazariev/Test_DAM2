@@ -1,29 +1,35 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class EscapeFromIlerna {
-
 	public static void main(String[] args) {
-
+		String digito = "";
+		String digito2 = "";
+		String digito3 = "";
+		String digito4 = "";
+		String codigo2 = "";
 		int ele = 0;
 		int vidas = 3;
 		boolean jugando = true;
-
-		///////// COLORES Y COMBINACIONES
+		boolean acertado = false;
+		Random rand = new Random();
+		int señal = rand.nextInt(4);
+		int señal2 = rand.nextInt(4);
+		int señal3 = rand.nextInt(4);
+		int señal4 = rand.nextInt(4);
+///////// COLORES Y COMBINACIONES
 		String cr = "\u001B[31m"; // rojo
 		String cg = "\u001B[32m"; // verde
 		String cy = "\u001B[33m"; // amarillo
-		String ca = "\u001B[34m"; // azul
+		String cb = "\u001B[34m"; // azul
 		String re = "\u001B[0m"; // reset (predeterminado)
 		String bk = "\u001B[1m"; // negrita
 		String sb = "\u001B[4m"; // subrayado
 		String cv = "\u001B[3m"; // cursiva
 		String oc = "\u001B[8m"; // texto oculto
-		String tc = "\u001B[9m"; // tachado
-		///////////////////////////////////////////
-
-		////////// INTRO ////////////
+///////////////////////////////////////////
+////////// INTRO ////////////
 		Scanner scan = new Scanner(System.in);
-		
 		System.out.println(cy + bk + "|| ESCAPA DE ILERNA ||" + re);
 		System.out.println();
 		System.out.println("Introduce tu nombre: ");
@@ -36,24 +42,20 @@ public class EscapeFromIlerna {
 		System.out.println("Tu misión: salir del aula antes de que sea demasiado tarde. En cada prueba tendrás " + cg
 				+ "3 intentos. " + re + "Si los gastas todos, tu jefe te despedirá.");
 		System.out.println();
-		///////////////////////
-
+///////////////////////
 		System.out.println(cy + bk + "| INICIO |" + re);
 		System.out.println();
 		System.out.println(bk + "La puerta está justo delante ¿Qué haces?" + re);
 		System.out.println(" 1. Intentas escabullirte cuando la profe mira la pizarra");
 		System.out.println(" 2. Levantas la mano y pides permiso para ir al baño");
 		System.out.println(" 3. Abres la ventana y saltas ");
-
 		if (scan.hasNextInt()) { // es un numero entero?
 			ele = scan.nextInt(); // si sí, léelo
 			scan.nextLine();
 		} else {
 			scan.nextLine(); // si no, lee y tira la línea
 		}
-
-		///////// NIVEL 0
-
+///////// NIVEL 0
 		if (ele == 1) {
 			System.out.println(
 					"La puerta estaba cerrada con llave y la manilla hace ruido. La profe se gira y dice: ¡Siéntate, "
@@ -62,25 +64,25 @@ public class EscapeFromIlerna {
 		} else if (ele == 2) { // CORRECTA
 			System.out.println(
 					"La profe dice: Vale, pero la puerta está bloqueada con el panel de seguridad. Primero tendrás que resolver un ejercicio en SQL.");
-
 			System.out.println();
 			System.out.println(cy + bk + "| NIVEL 1 |" + re);
 			System.out.println();
-			System.out.println("La profe te dio una tabla llamada " + sb + "PUERTAS" + re + " con los siguientes datos:");
+			System.out
+					.println("La profe te dio una tabla llamada " + sb + "PUERTAS" + re + " con los siguientes datos:");
+
 			System.out.println();
-			System.out.println(bk + "id | aula | estado  | codigo" + re);
-			System.out.println("1  | B1   | cerrada | 1200");
-			System.out.println("2  | B3   | abierta | 700");
-			System.out.println("3  | B3   | cerrada | 1550");
-			System.out.println("4  | B2   | cerrada | 900");
-			System.out.println("5  | B3   | cerrada | 2000");
+			System.out.println(bk + "id | aula | estado | codigo" + re);
+			System.out.println("1 | B1 | cerrada | 1200");
+			System.out.println("2 | B3 | abierta | 700");
+			System.out.println("3 | B3 | cerrada | 1550");
+			System.out.println("4 | B2 | cerrada | 900");
+			System.out.println("5 | B3 | cerrada | 2000");
 			System.out.println();
 			System.out.println(bk + "SELECT SUM(codigo)");
 			System.out.println("FROM puertas");
 			System.out.println("WHERE aula = 'B3' AND estado = 'cerrada';" + re);
 			System.out.println();
 			System.out.println("El panel pide el resultado de la consulta para abrirse. Introduce el código:");
-
 		} else if (ele == 3) {
 			jugando = false;
 			System.out.println(
@@ -91,41 +93,33 @@ public class EscapeFromIlerna {
 					"Te quedas dudando tanto que suena el timbre... y sigues dentro. " + cr + " FIN DEL JUEGO." + re);
 			jugando = false;
 		}
-
-		//////// NIVEL 1
-		
-
-		boolean acertado = true;
+//////// NIVEL 1
 		int codigo = 3550;
-		
-		while (jugando && acertado && vidas > 0) {
-
+		while (jugando && !acertado && vidas > 0) {
 			ele = 0;
-			
 			if (scan.hasNextInt()) {
 				ele = scan.nextInt();
 				scan.nextLine();
 			} else {
 				scan.nextLine();
 			}
-			
-
 			if (ele == codigo) {
-				System.out.println(cg + "Has acertado!" + re + " La puerta se abre, pero el pasillo acaba en otra puerta con una cerradura digital...");
-				acertado = false;
+				System.out.println(cg + "Has acertado!" + re
+						+ " La puerta se abre, pero el pasillo acaba en otra puerta con una cerradura digital...");
+				acertado = true;
 				System.out.println();
 				System.out.println(cy + bk + "| NIVEL 2 |" + re);
 				System.out.println();
-				System.out.println("La cerradura de la salida tiene grabado un programa, averigua cómo encontrarla... ");
+				System.out
+						.println("La cerradura de la salida tiene grabado un programa, averigua cómo encontrarla... ");
 				System.out.println();
-				System.out.println(oc + bk + "int n = 1                     ");
+				System.out.println(oc + bk + "int n = 1; ");
 				System.out.println("for (int i = 1; i <= 4; i++) {");
-				System.out.println("    n = n * 2;                ");
-				System.out.println("}                             ");
+				System.out.println(" n = n * 2; ");
+				System.out.println("} ");
+				System.out.println("System.out.println(n); ");
 				System.out.println(re);
-				System.out.println("Para abrir, introduce el valor final de n:");
-				
-				
+				System.out.println("Qué imprime en la consola?");
 			} else if (ele == 4250) {
 				System.out.println("¡Ups te has equivocado! pista: fijate en el 'AND' ");
 				vidas = vidas - 1;
@@ -138,31 +132,110 @@ public class EscapeFromIlerna {
 				System.out.println("Vuelve a intentarlo:");
 			}
 		}
-		if (jugando && acertado && vidas == 0) {
+		if (jugando && !acertado) {
 			System.out.println("Te quedaste sin intentos! La profesora está decepcionada " + cr + "FIN DEL JUEGO" + re);
 			jugando = false;
-
 		}
-		
-		/////// NIVEL 2
-		
+/////// NIVEL 2
 		vidas = 3;
-		
+		acertado = false;
 		while (jugando && !acertado && vidas > 0) {
-			
 			ele = 0;
-			
 			if (scan.hasNextInt()) {
+
 				ele = scan.nextInt();
 				scan.nextLine();
 			} else {
 				scan.nextLine();
 			}
-			
 			if (ele == 16) {
-				System.out.println(cg + "¡Has acertado!" + re);
+				System.out.println(
+						cg + "¡Has acertado!" + re + " La cerradura se abre pero te encuentras con el profesor de IPO");
+				System.out.println("Para salir le tienes que decir el código de cuatro digitos");
+				System.out.println();
+				System.out.println(cy + bk + "| NIVEL 3 |" + re);
+				System.out.println();
+				System.out.println("El profesor te muestra cuatro señales de seguridad industrial:");
+				System.out.println();
+				System.out.println("Pista: fijate en las formas de las señales");
+				System.out.println();
+				if (señal == 0) {
+					System.out.println(cv + cy + "PELIGRO" + re);
+					digito = "3";
+				} else if (señal == 1) {
+					System.out.println(cv + cr + "PROHIBIDO" + re);
+					digito = "0";
+				} else if (señal == 2) {
+					System.out.println(cv + cb + "OBLIGATORIO" + re);
+					digito = "0";
+				} else if (señal == 3) {
+					System.out.println(cv + cb + "INDICACIÓN" + re);
+					digito = "4";
+				}
+				if (señal2 == 0) {
+					System.out.println(cv + cy + "PELIGRO" + re);
+					digito2 = "3";
+				} else if (señal2 == 1) {
+					System.out.println(cv + cr + "PROHIBIDO" + re);
+					digito2 = "0";
+				} else if (señal2 == 2) {
+					System.out.println(cv + cb + "OBLIGATORIO" + re);
+					digito2 = "0";
+				} else if (señal2 == 3) {
+					System.out.println(cv + cb + "INDICACIÓN" + re);
+					digito2 = "4";
+				}
+				if (señal3 == 0) {
+					System.out.println(cv + cy + "PELIGRO" + re);
+					digito3 = "3";
+				} else if (señal3 == 1) {
+					System.out.println(cv + cr + "PROHIBIDO" + re);
+					digito3 = "0";
+				} else if (señal3 == 2) {
+					System.out.println(cv + cb + "OBLIGATORIO" + re);
+					digito3 = "0";
+				} else if (señal3 == 3) {
+					System.out.println(cv + cb + "INDICACIÓN" + re);
+					digito3 = "4";
+				}
+				if (señal4 == 0) {
+					System.out.println(cv + cy + "PELIGRO" + re);
+					digito4 = "3";
+				} else if (señal4 == 1) {
+					System.out.println(cv + cr + "PROHIBIDO" + re);
+					digito4 = "0";
+				} else if (señal4 == 2) {
+					System.out.println(cv + cb + "OBLIGATORIO" + re);
+					digito4 = "0";
+				} else if (señal4 == 3) {
+					System.out.println(cv + cb + "INDICACIÓN" + re);
+					digito4 = "4";
+				}
+				acertado = true;
+				System.out.println();
+				System.out.println("Introduze el código: ");
+			} else {
+				System.out.println("¡Ups, te has equivocado!");
+				vidas = vidas - 1;
+				System.out.println(cr + "Te quedan " + vidas + " intentos!" + re);
+				System.out.println("Vuelve a intentarlo:");
+			}
 
+			if (jugando && !acertado && vidas == 0) {
+				System.out.println("Te quedaste sin intentos! Suena la alarma del código y la profesora te encuentra: "
+						+ user + "! ¡¿Qué haces aquí?! " + cr + "FIN DEL JUEGO" + re);
 				jugando = false;
+			}
+		}
+//////// NIVEL 3
+		vidas = 3;
+		acertado = false;
+		while (jugando && !acertado && vidas > 0) {
+			codigo2 = scan.nextLine();
+			if (codigo2.equals(digito + "" + digito2 + "" + digito3 + "" + digito4)) {
+				System.out.println(cg + "¡Has acertado!" + re
+						+ " Has escapado de Ilerna y llegaste temprano al trabajo. " + cy + bk + "VICTORIA" + re);
+				acertado = true;
 			} else {
 				System.out.println("¡Ups, te has equivocado!");
 				vidas = vidas - 1;
@@ -170,10 +243,10 @@ public class EscapeFromIlerna {
 				System.out.println("Vuelve a intentarlo:");
 			}
 			if (jugando && !acertado && vidas == 0) {
-				System.out.println("Te quedaste sin intentos! La profesora está decepcionada " + cr + "FIN DEL JUEGO" + re);
+				System.out.println("Te quedaste sin intentos! El profesor no te deja salir: " + user
+						+ "... Deberias de estar más atento en las clases de IPO " + cr + "FIN DEL JUEGO" + re);
 				jugando = false;
 			}
 		}
-		
 	}
 }
